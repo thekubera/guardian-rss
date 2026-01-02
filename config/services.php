@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'guardian' => [
+        'key' => env('GUARDIAN_API_KEY'),
+    ],
+
 ];
