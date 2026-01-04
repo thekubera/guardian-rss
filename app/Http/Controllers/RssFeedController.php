@@ -16,14 +16,12 @@ class RssFeedController extends Controller
         return Cache::remember($cacheKey, now()->addMinutes(10), function () use ($section) {
 
             Log::info('Fetching Guardian section', [
-                'section' => $section
+                'section' => $section,
             ]);
             $apiResponse = app(GuardianApiService::class)->fetchSection($section);
 
-
-
             return response(
-                app(RssFeedBuilder::class)->build($apiResponse,  ['self' => url($section)]),
+                app(RssFeedBuilder::class)->build($apiResponse, ['self' => url($section)]),
                 200
             )
                 ->header('Content-Type', 'application/rss+xml; charset=UTF-8');

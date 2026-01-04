@@ -19,7 +19,7 @@ class GuardianApiService
         if ($response->failed()) {
             Log::error('Guardian API failed', [
                 'section' => $section,
-                'status' => $response->status()
+                'status' => $response->status(),
             ]);
 
             abort(502, 'Failed to fetch Guardian content');
