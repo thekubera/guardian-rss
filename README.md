@@ -5,7 +5,7 @@ A Laravel 12-based RSS feed service exposing the latest articles from The Guardi
 Users can access feeds via URLs like:
 
 - `http://localhost:8000/politics`
-- `http://localhost:8000/movies`
+- `http://localhost:8000/technology`
 - `http://localhost:8000/lifeandstyle`
 
 The service fetches data from the Guardian API (JSON), converts it to W3C-compliant RSS, and serves it with proper caching, error handling, and logging.
@@ -62,6 +62,7 @@ GUARDIAN_API_KEY=b47ef130-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ```bash
 composer install
+php artisan key:generate
 php artisan serve
 ```
 
@@ -69,7 +70,7 @@ Access feeds at `http://127.0.0.1:8000/section-name` eg. politics
 
 ---
 
-### 4. Running with Docker (Recommended)
+### 4. Running with Docker
 
 #### Build and start containers
 
@@ -99,6 +100,8 @@ Or inside Docker:
 ```bash
 docker compose exec app php artisan test
 ```
+
+**Important**: Tests require development dependencies (`pestphp/pest`, etc.), which are **not installed** in the Docker image (due to `composer install --no-dev`).
 
 ---
 
