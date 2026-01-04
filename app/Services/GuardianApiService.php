@@ -14,7 +14,6 @@ class GuardianApiService
             'api-key' => config('services.guardian.key'),
             'show-fields' => 'trailText,headline,shortUrl',
         ]);
-        info($response);
 
         if ($response->failed()) {
             Log::error('Guardian API failed', [
