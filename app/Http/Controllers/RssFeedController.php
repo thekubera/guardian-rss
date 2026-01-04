@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\GuardianApiService;
+use App\Services\RssFeedBuilder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
@@ -17,14 +18,15 @@ class RssFeedController extends Controller
             Log::info('Fetching Guardian section', [
                 'section' => $section
             ]);
-            $articles = (new GuardianApiService())->fetchSection($section);
-            return response()->json($articles);
+            $apiResponse = app(GuardianApiService::class)->fetchSection($section);
 
-            // return response(
 
-            //     Response::HTTP_OK,
-            //     ['Content-Type' => 'application/rss+xml']
-            // );
+
+            return response(
+                app(RssFeedBuilder::class)->build($apiResponse,  ['self' => url($section)]),
+                200
+            )
+                ->header('Content-Type', 'application/rss+xml; charset=UTF-8');
         });
     }
 }

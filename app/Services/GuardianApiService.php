@@ -14,6 +14,7 @@ class GuardianApiService
             'api-key' => config('services.guardian.key'),
             'show-fields' => 'trailText,headline,shortUrl',
         ]);
+        info($response);
 
         if ($response->failed()) {
             Log::error('Guardian API failed', [
@@ -24,6 +25,6 @@ class GuardianApiService
             abort(502, 'Failed to fetch Guardian content');
         }
 
-        return $response->json('response.results');
+        return $response->json();
     }
 }
